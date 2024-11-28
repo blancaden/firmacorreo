@@ -15,76 +15,64 @@ $facebook = $_POST['facebook'];
 $youtube = $_POST['youtube'];
 $instagram = $_POST['instagram'];
 
-// generar - firma - formato HTML
-$firma_html = "
-<table style='font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6;'>
+// Procesar la imagen cargada
+$foto_temp = null; 
+
+if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+   
+    $tipo_archivo = mime_content_type($_FILES['foto']['tmp_name']);
+    $formatos_permitidos = ['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml', 'image/webp'];
+    
+    if (in_array($tipo_archivo, $formatos_permitidos)) {
+        // Leer el archivo temporal y codificarlo en base64
+        $contenido_binario = file_get_contents($_FILES['foto']['tmp_name']);
+        $foto_temp = 'data:' . $tipo_archivo . ';base64,' . base64_encode($contenido_binario);
+    } else {
+        echo "Formato de archivo no permitido.";
+    }
+}
+
+// Generar la firma en formato HTML
+$firma_html = "<table class='table-firm'>
     <tr>
-        <td style='font-weight: bold; color: #007bff;'>$nombre</td>
-    </tr>
-    <tr>
-        <td style='font-style: italic; color: #555;'>$cargo</td>
-    </tr>
-    <tr>
-        <td>$empresa</td>
-    </tr>
-    <tr>
-        <td>
-            <a href='mailto:$correo' style='color: #007bff; text-decoration: none;'>$correo</a>
+      
+        <td class='img-content'>
+            " . ($foto_temp ? "<img src='$foto_temp' alt='Foto de $nombre' class='img-photo'>" : "") . "
         </td>
-    </tr>";
 
-if ($telefono) {
-    $firma_html .= "<tr><td>Tel: $telefono</td></tr>";
-}
-if ($direccion) {
-    $firma_html .= "<tr><td>Dirección: $direccion</td></tr>";
-}
+        <td class='info-content'>
+            <p class='name'>$nombre</p>
+            <p class='job'>$cargo</p>
+            <p class='company'>$empresa</p>
+            <p><a href='mailto:$correo' class='email'>$correo</a></p>
+            " . ($telefono ? "<p class='phone'>Tel: $telefono</p>" : "") . "
+            " . ($direccion ? "<p class='address'>Dirección: $direccion</p>" : "") . "
+        </td>
 
+        <td class='social-content'>
 
-$firma_html .= "<tr><td style='padding-top: 10px;'>";
+            <div class='logo-emp'>
+                
+                <img src='img/windup-logo.png' alt='logo' class='logo-image'>
 
+            </div>
 
-if ($linkedin) {
-    $firma_html .= "<a href='$linkedin' target='_blank' style='text-decoration: none; margin-right: 10px;'> 
-                        <img src='img/linkedin.png' alt='LinkedIn' style='width: 24px; height: 24px;'> 
-                    </a>";
-}
+            <div class='social-icons'>
+                " . ($linkedin ? "<a href='$linkedin' target='_blank' class='social-icon'><img src='img/linkedin.png' alt='LinkedIn'></a>" : "") . "
+                " . ($X ? "<a href='$X' target='_blank' class='social-icon'><img src='img/red-x.png' alt='X'></a>" : "") . "
+                " . ($facebook ? "<a href='$facebook' target='_blank' class='social-icon'><img src='img/facebook.png' alt='Facebook'></a>" : "") . "
+                " . ($youtube ? "<a href='$youtube' target='_blank' class='social-icon'><img src='img/youtube.png' alt='YouTube'></a>" : "") . "
+                " . ($instagram ? "<a href='$instagram' target='_blank' class='social-icon'><img src='img/instagram.png' alt='Instagram'></a>" : "") . "
+            </div>
+        </td>
+    </tr>
+</table>"; 
 
-
-if ($X) {
-    $firma_html .= "<a href='$X' target='_blank' style='text-decoration: none; margin-right: 10px;'> 
-                        <img src='img/red-x.png' alt='Twitter' style='width: 24px; height: 24px;'> 
-                    </a>";
-}
-
-
-if ($facebook) {
-    $firma_html .= "<a href='$facebook' target='_blank' style='text-decoration: none;'> 
-                        <img src='img/facebook.png' alt='Facebook' style='width: 24px; height: 24px;'> 
-                    </a>";
-}
-
-
-if ($youtube) {
-    $firma_html .= "<a href='$youtube' target='_blank' style='text-decoration: none;'> 
-                        <img src='img/youtube.png' alt='Youtube' style='width: 24px; height: 24px;'> 
-                    </a>";
-}
-
-if ($instagram) {
-    $firma_html .= "<a href='$instagram' target='_blank' style='text-decoration: none;'> 
-                        <img src='img/instagram.png' alt='Instagram' style='width: 24px; height: 24px;'> 
-                    </a>";
-}
-
-
-$firma_html .= "</td></tr></table>";
 ?>
 
 <div class="container">
     <h2>Firma Generada</h2>
     <div class="firma">
-       
         <?php echo $firma_html; ?>
     </div>
 </div>

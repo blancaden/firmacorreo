@@ -3,7 +3,11 @@ $title = "Inicio - Generador de Firmas";
 include 'header.php'; 
 ?>
 <div class="container">
-    <form action="firma.php" method="POST">
+    <form action="firma.php" method="POST" enctype="multipart/form-data">
+        
+        <label for="foto">Foto</label>
+        <input type="file" id="foto" name="foto" accept="image/*">
+
         <label for="nombre">Nombre Completo</label>
         <input type="text" id="nombre" name="nombre" required>
 

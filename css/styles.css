@@ -54,6 +54,16 @@ textarea {
     box-sizing: border-box;
 }
 
+.table-firm {
+    width: 100%;
+    border-spacing: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+}
+.table-firm td {
+    vertical-align: top;
+}
 textarea {
     resize: vertical;
 }
@@ -78,8 +88,8 @@ button:hover {
     margin-top: 20px;
     padding: 20px;
     border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
+    border-radius: 0 100px 100px 100px; 
+    background-color: #000000;
 }
 
 .firma .nombre {
@@ -90,7 +100,7 @@ button:hover {
 
 .firma .cargo {
     font-style: italic;
-    color: #555;
+    color: white;
 }
 
 .firma a {
@@ -100,6 +110,80 @@ button:hover {
 
 .firma a:hover {
     text-decoration: underline;
+}
+
+
+.img-content {
+    position: relative;
+    width: 150px; 
+    height: 150px;
+    background-color: #e0e0eb; 
+    border-radius: 0 100px 100px 100px;
+    overflow: hidden; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+/* Estilo para la información */
+.info-content {
+    width: 50%;
+    text-align: left;
+    margin-left: 50%;
+}
+
+.name {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.job {
+    font-style: italic;
+    color: #fdfbfb;
+}
+
+.company,
+.email, 
+.phone,
+.address {
+    color: #fdfbfb;
+}
+
+/* Estilo para la columna de redes sociales */
+.social-content {
+    width: 40%;
+    text-align: center;
+}
+
+.social-icons {
+    padding-top: 10px;
+
+   
+}
+
+.social-icon {
+    text-decoration: none;
+    margin-right: 10px;
+} 
+
+.social-icon img {
+    width: 24px;
+    height: 24px;
+}
+.logo-emp{
+    margin-bottom: 55%;
+    width: 170px;
+    height: 25px;
+}
+.logo-emp img {
+    width: 20vh;
+    margin-left: 35px;
 }
 
 /* Pie de página */
