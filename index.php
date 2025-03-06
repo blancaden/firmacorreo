@@ -8,10 +8,13 @@ include 'header.php';
         <label for="foto">Foto</label>
         <input type="file" id="foto" name="foto" accept="image/*">
 
-        <label for="nombre">Nombre Completo</label>
+        <label for="nombre">Nombre</label>
         <input type="text" id="nombre" name="nombre" required>
 
-        <label for="cargo">Cargo</label>
+        <label for="nombre">Apellidos</label>
+        <input type="text" id="apellidos" name="apellidos" required>
+
+        <label for="cargo">Cargo en la empresa</label>
         <input type="text" id="cargo" name="cargo" required>
 
         <label for="telefono">Teléfono</label>
